@@ -27,7 +27,7 @@ export default class LoginPage extends Component{
             this.props.side()
         }).catch((error) => {
             console.log(error)
-            alert("Error while login ! Wrong username or password");
+            alert(error + "Error while login ! Wrong username or password");
         })
          
     }
