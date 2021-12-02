@@ -18,8 +18,9 @@ export default class LoginPage extends Component{
             username: uname,
             password: pwd
         }
-        //console.log(obj)
+        console.log(obj)
         getToken(obj).then((res) => {
+            console.log("RESULT:")
             console.log(res)
             if(res['error'])
                 throw new Error("Wrong username or password");
