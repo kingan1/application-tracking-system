@@ -295,7 +295,7 @@ def create_app():
 
 
 app = create_app()
-with open('application.yml') as f:
+with open('backend/application.yml') as f:
     info = yaml.load(f, Loader=yaml.FullLoader)
     app.config['MONGODB_SETTINGS'] = {
         'db': 'appTracker',
