@@ -477,6 +477,7 @@ db = MongoEngine()
 db.init_app(app)
 
 
+
 class Users(db.Document):
     """
     Users class. Holds full name, username, password, as well as applications and resumes
