@@ -1,5 +1,5 @@
 [![GitHub license](https://img.shields.io/github/license/kingan1/application-tracking-system)](https://github.com/kingan1/application-tracking-system/blob/main/LICENSE)
-[![DOI](https://zenodo.org/badge/417325535.svg)](https://zenodo.org/badge/latestdoi/417325535)
+[![DOI](https://zenodo.org/badge/426259091.svg)](https://zenodo.org/badge/latestdoi/426259091)
 [![codecov](https://codecov.io/gh/kingan1/application-tracking-system/branch/main/graph/badge.svg)](https://codecov.io/gh/kingan1/application-tracking-system)
 ![GitHub issues](https://img.shields.io/github/issues/kingan1/application-tracking-system)
 ![GitHub issues](https://img.shields.io/github/issues-closed/kingan1/application-tracking-system)
@@ -22,10 +22,35 @@ Our application keeps track of the jobs you've added to your wish list. It also 
 
 This application is created as a part of our SE project for Fall 2021
 
+## Table of contents
+
+- [Basic Design](#basic-design)
+- [Demo](#demo)
+- [Improvements](#improvements)
+    + [Whats New](#whats-new)
+- [Roadmap](#roadmap)
+- [Future Scope](#future-scope)
+- [Explanation](#explanation)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+    + [Requirements](#requirements)
+    + [Strongly Recommended](#strongly-recommended)
+- [Getting Started](#getting-started)
+    + [Boot](#boot)
+    + [Shutdown](#shutdown)
+- [Hosting the Database](#hosting-the-database)
+    + [Local MongoDB](#local-mongodb)
+    + [Hosted database with MongoDB Atlas](#hosted-database-with-mongodb-atlas)
+- [License](#license)
+- [How to Contribute](#how-to-contribute)
+- [Team Members](#team-members)
+
+
+
 ## Basic Design:
 ![Basic Design](https://github.com/prithvish-doshi-17/application-tracking-system/blob/main/resources/Overall%20Design.PNG)
 
-### Here's how the application looks:
+### Demo:
 https://user-images.githubusercontent.com/43064854/135554649-9f5e8f21-ff12-45c9-82b4-37078e88709d.mp4
 
 
@@ -35,15 +60,25 @@ https://user-images.githubusercontent.com/43064854/135554649-9f5e8f21-ff12-45c9-
 https://user-images.githubusercontent.com/89696745/140273086-a03a6c7b-2d06-47c5-a7d4-a27ec4e99c3e.mp4
 
 
+### Whats New
 
-* Easier setup instructions and Installation process
-* Restructuring the Flask application
-* Writing unit tests
-* Introducing Database
-* Removing unused codes and updating Gitignore
-* CI/CD Pipeline for Frontend app
-* Adding Linters, Code formatters
-* Adding Software documentation
+#### Version 1.1
+
+- Add headless feature for selenium
+- Fix shutdown.sh
+- Login frontend
+- Add resume storage for users
+- Updated reloading issues
+- Fix linting issues
+
+#### Version 1.0.3
+
+- Updated badges for repository
+- Users database implementation
+- Add logout endpoint and update middleware
+- Implementing search based on salary functionality
+- Login frontend for login and signup functionality
+- Search custom date
 
 
 
@@ -151,8 +186,9 @@ Please see our CONTRIBUTING.md for instructions on how to contribute to the repo
 
 
 ## Team Members
-* [Setu Kumar Basak](https://github.com/setu1421)  
-* [Conor Thomason](https://github.com/ConorThomason)  
-* [Keertana Vellanki](https://github.com/KeertanaVellanki)  
-* [Muntasir Hoq](https://github.com/muntasirhoq)  
-* [Matthew Sohacki](https://github.com/msohacki)  
+- Ashley King
+- Manoj Kumar
+- Rakesh Muppala
+- Sayali Parab
+- Ashwin Das
+- Renji Joseph Sabu 

@@ -4,6 +4,8 @@ import { Modal } from 'react-bootstrap'
 export default class SearchCard extends Component {
   constructor (props) {
     super(props)
+    console.log("props")
+    console.log(props.application)
     this.state = {
       handleCloseEditModal: props.handleCloseEditModal,
       deleteApplication: props.deleteApplication,
@@ -12,8 +14,11 @@ export default class SearchCard extends Component {
       jobTitle: props.application.jobTitle,
       companyName: props.application.companyName,
       date: props.application.date,
+      jobLink: props.application.jobLink,
+      location: props.application.location,
       class: '1'
     }
+    console.log(this.state)
   }
 
   // set data to state automatically corresponding to the attribute 'id' of input field
@@ -23,16 +28,21 @@ export default class SearchCard extends Component {
   }
 
   submitAction () {
-    alert("Submitted !");
+    alert('Submitted !')
     this.state.handleCloseEditModal()
     const application = {
       id: this.state.id,
       companyName: this.state.companyName,
       jobTitle: this.state.jobTitle,
       date: this.state.date,
+      jobLink: this.state.jobLink,
+      location: this.state.location,
       status: this.state.class
     }
-    //console.log(application)
+    if (application.jobLink && !application.jobLink.startsWith('http')) {
+      application.jobLink = 'http://' + application.jobLink
+    }
+    console.log(application)
     // call parent function to handle data change
     this.state.submitFunc(application)
   }
@@ -74,6 +84,20 @@ export default class SearchCard extends Component {
               <label htmlFor='date' className='col-form-label'>Date</label>
               <input
                 type='date' className='form-control' id='date' value={this.state.date}
+                onChange={this.handleChange.bind(this)}
+              />
+            </div>
+            <div className='form-group'>
+              <label htmlFor='jobLink' className='col-form-label'>Job link</label>
+              <input
+                type='text' className='form-control' id='jobLink' value={this.state.jobLink}
+                onChange={this.handleChange.bind(this)}
+              />
+            </div>
+            <div className='form-group'>
+              <label htmlFor='location' className='col-form-label'>Location</label>
+              <input
+                type='text' className='form-control' id='location' value={this.state.location}
                 onChange={this.handleChange.bind(this)}
               />
             </div>

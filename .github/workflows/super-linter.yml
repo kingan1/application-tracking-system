@@ -20,7 +20,13 @@ jobs:
     - name: Lint Code Base
       uses: github/super-linter@v4
       env:
+          LINTER_RULES_PATH: /
+          VALIDATE_JSCPD: false
           VALIDATE_ALL_CODEBASE: false
           VALIDATE_MARKDOWN: false
+          VALIDATE_JAVASCRIPT_STANDARD: false
+          VALIDATE_PYTHON_FLAKE8: false
+          VALIDATE_PYTHON_ISORT: false
+          VALIDATE_PYTHON_MYPY: false
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

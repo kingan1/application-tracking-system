@@ -6,6 +6,7 @@ import Sidebar from './sidebar/Sidebar'
 import ApplicationPage from './application/ApplicationPage'
 import SearchPage from './search/SearchPage'
 import LoginPage from './login/LoginPage'
+import ManageResumePage from './resume/ManageResumePage'
 
 
 export default class App extends React.Component {
@@ -14,7 +15,9 @@ export default class App extends React.Component {
     let mapRouter = {
       'SearchPage': <SearchPage/>,
       'ApplicationPage' : <ApplicationPage/>,
-      'LoginPage': <LoginPage/>
+      'LoginPage': <LoginPage/>,
+      'ManageResumePage': <ManageResumePage/>
+
     }
     this.state ={
       currentPage: <LoginPage/>,
@@ -24,6 +27,12 @@ export default class App extends React.Component {
     this.sidebarHandler = this.sidebarHandler.bind(this);
   };
 
+  componentDidMount() {
+    if(localStorage.getItem('token')) {
+      this.sidebarHandler()
+    }
+  }
+
   sidebarHandler = () => {
     this.setState({
       currentPage: this.state.mapRouter['ApplicationPage'],
@@ -32,6 +41,7 @@ export default class App extends React.Component {
   }
 
   handleLogout = () => {
+    localStorage.removeItem('token')
     this.setState({
       sidebar:false
     })
@@ -59,8 +69,8 @@ export default class App extends React.Component {
             </div>
             {this.state.currentPage}
             <button style={{position: 'absolute',
-                         bottom: '3vh',
-                         left:'35vw'}}
+                         top: '2vh',
+                         left:'90vw'}}
                     onClick={this.handleLogout}>Logout
 
             </button>
@@ -88,3 +98,4 @@ export default class App extends React.Component {
     return app;
   }
 }
+

@@ -1,12 +1,12 @@
-import fetch from './handler';
+import fetch from './handler'
 
 export const getToken = (params) => {
   return fetch({
     method: 'POST',
     url: '/users/login',
-    body: params,
+    body: params
   })
-};
+}
 
 export const signUp = (params) => {
   return fetch({
@@ -14,4 +14,9 @@ export const signUp = (params) => {
     url: '/users/signup',
     body: params
   })
+}
+
+export const storeToken = (obj) => {
+  localStorage.setItem('token', obj.token)
+  localStorage.setItem('expiry', obj.expiry)
 }
