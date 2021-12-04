@@ -464,7 +464,8 @@ def create_app():
 
 
 app = create_app()
-with open("application.yml") as f:
+# with open("application.yml") as f:  # for development, replace with this line. If an env can be added, it is the best
+with open('backend/application.yml') as f:
     info = yaml.load(f, Loader=yaml.FullLoader)
     username = info["username"]
     password = info["password"]
