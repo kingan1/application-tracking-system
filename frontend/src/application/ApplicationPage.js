@@ -22,7 +22,7 @@ export default class CardBoard extends Component {
   // get initial data to render the root page
   getData () {
     return $.ajax({
-      url: 'http://localhost:5000/application',
+      url: `${process.env.REACT_APP_API_ROOT}/application`,
       method: 'GET'
     })
   }
@@ -67,7 +67,7 @@ export default class CardBoard extends Component {
       // current application is a new application, create a new one and save in the backend.
       console.log('new application')
       $.ajax({
-        url: 'http://localhost:5000/application', // TODO: will have to replace with production URL
+        url: `${process.env.REACT_APP_API_ROOT}/application`, // TODO: will have to replace with production URL
         method: 'POST',
         async: false,
         data: JSON.stringify({
@@ -84,7 +84,7 @@ export default class CardBoard extends Component {
     } else {
       console.log('updating id=' + application.id)
       $.ajax({
-        url: 'http://localhost:5000/application',
+        url: `${process.env.REACT_APP_API_ROOT}/application`,
         method: 'PUT',
         async: false,
         data: JSON.stringify({
@@ -108,7 +108,7 @@ export default class CardBoard extends Component {
     const newApplications = this.state.applications
     console.log('deleting id=' + application.id)
     $.ajax({
-      url: 'http://localhost:5000/application',
+      url: `${process.env.REACT_APP_API_ROOT}/application`,
       method: 'DELETE',
       async: false,
       data: JSON.stringify({
