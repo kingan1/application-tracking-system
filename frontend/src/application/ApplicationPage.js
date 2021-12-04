@@ -22,7 +22,7 @@ export default class CardBoard extends Component {
   // get initial data to render the root page
   getData () {
     return $.ajax({
-      url: `${process.env.REACT_APP_API_ROOT}/application`,
+      url: `${process.env.REACT_APP_API_ROOT}/applications`,
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -127,7 +127,7 @@ export default class CardBoard extends Component {
     const newApplications = this.state.applications
     console.log('deleting id=' + application.id)
     $.ajax({
-      url: `${process.env.REACT_APP_API_ROOT}/applications${application.id}`,
+      url: `${process.env.REACT_APP_API_ROOT}/applications/${application.id}`,
       method: 'DELETE',
       async: false,
       data: JSON.stringify({
