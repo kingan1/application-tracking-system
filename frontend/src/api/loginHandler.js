@@ -1,7 +1,6 @@
 import fetch from './handler'
 
 export const getToken = (params) => {
-  // console.log(params)
   return fetch({
     method: 'POST',
     url: '/users/login',

@@ -22,11 +22,11 @@ export default class CardBoard extends Component {
   // get initial data to render the root page
   getData () {
     return $.ajax({
-      url: 'http://localhost:5000/applications',
+      url: `${process.env.REACT_APP_API_ROOT}/applications`,
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
-        'Access-Control-Allow-Origin': 'http://localhost:3000',
+        'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': 'true'
       },
       credentials: 'include'
@@ -76,7 +76,7 @@ export default class CardBoard extends Component {
     if (application.id == null) {
       // current application is a new application, create a new one and save in the backend.
       $.ajax({
-        url: 'http://localhost:5000/applications', // TODO: will have to replace with production URL
+        url: `${process.env.REACT_APP_API_ROOT}/applications`, // TODO: will have to replace with production URL
         method: 'POST',
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -98,7 +98,7 @@ export default class CardBoard extends Component {
     } else {
       console.log('updating id=' + application.id)
       $.ajax({
-        url: 'http://localhost:5000/applications/' + application.id,
+        url: `${process.env.REACT_APP_API_ROOT}/applications/${application.id}`,
         method: 'PUT',
         async: false,
         data: JSON.stringify({
@@ -127,7 +127,7 @@ export default class CardBoard extends Component {
     const newApplications = this.state.applications
     console.log('deleting id=' + application.id)
     $.ajax({
-      url: 'http://localhost:5000/applications/' + application.id,
+      url: `${process.env.REACT_APP_API_ROOT}/applications/${application.id}`,
       method: 'DELETE',
       async: false,
       data: JSON.stringify({
