@@ -110,6 +110,7 @@ def create_app():
         """
         headers = request.headers
         token = headers["Authorization"].split(" ")[1]
+        print(token)
         userid = token.split(".")[0]
         return userid
 
@@ -167,6 +168,78 @@ def create_app():
             user.save()
             return jsonify(user.to_json()), 200
         except:
+            return jsonify({"error": "Internal server error"}), 500
+
+    @app.route("/getProfile", methods=["GET"])
+    def get_profile_data():
+        """
+        Gets user's profile data from the database
+
+        :return: JSON object with application data
+        """
+        try:
+            userid = get_userid_from_header()
+            user = Users.objects(id=userid).first()
+            profileInformation = {}
+            profileInformation["skills"] = user["skills"] 
+            profileInformation["job_levels"] = user["job_levels"] 
+            profileInformation["locations"] = user["locations"] 
+            profileInformation["institution"] = user["institution"] 
+            profileInformation["phone_number"] = user["phone_number"] 
+            profileInformation["address"] = user["address"] 
+            
+            return jsonify(profileInformation)
+        except:
+            return jsonify({"error": "Internal server error"}), 500
+
+    @app.route("/updateProfile", methods=["POST"])
+    def updateProfilePreferences():
+        """
+        Update the user profile with preferences: skills, job-level and location
+        """
+        try:
+            print(request.data)
+            userid = get_userid_from_header()
+            user = Users.objects(id=userid).first()
+            data = json.loads(request.data)
+            print(user.fullName)
+            institution, phone_number, address = "","",""
+
+            skills, job_levels, locations = [],[],[]
+            if data["skills"]:
+                user.skills = data["skills"]
+                
+            if data["job_levels"]:
+                user.job_levels = data["job_levels"]
+
+            if data["locations"]:
+                user.locations = data["locations"]
+            
+            if data["institution"]:
+                user.institution = data["institution"]
+            
+            if data["phone_number"]:
+                user.phone_number = data["phone_number"]
+
+            if data["address"]:
+                user.address = data["address"]
+            
+            user.save()
+            # Users.modify(user, id = userid, skills = skills)
+            
+            # db.users.update_one({'_id': 3},{'$set': {'skills': skills, 'job_levels': job_levels, 'locations': locations}})
+            # user.update({'skills': skills, 'job_levels': job_levels, 'locations': locations})
+            # Users.save()
+
+            # user.skills.put(skills)
+            # user.save()
+            # user.job_levels.put(job_levels)
+            # user.locations.put(locations)
+            
+            return jsonify(user.to_json()), 200
+
+        except Exception as err:
+            print(err)
             return jsonify({"error": "Internal server error"}), 500
 
     @app.route("/users/login", methods=["POST"])
@@ -237,7 +310,8 @@ def create_app():
             if request.args.get("keywords")
             else "random_test_keyword"
         )
-        salary = request.args.get("salary") if request.args.get("salary") else ""
+        salary = request.args.get(
+            "salary") if request.args.get("salary") else ""
         keywords = keywords.replace(" ", "+")
         if keywords == "random_test_keyword":
             return json.dumps({"label": str("successful test search")})
@@ -276,10 +350,12 @@ def create_app():
         df = pd.DataFrame(columns=["jobTitle", "companyName", "location"])
         mydivs = soup.find_all("div", {"class": "PwjeAc"})
         for i, div in enumerate(mydivs):
-            df.at[i, "jobTitle"] = div.find("div", {"class": "BjJfJf PUpOsf"}).text
+            df.at[i, "jobTitle"] = div.find(
+                "div", {"class": "BjJfJf PUpOsf"}).text
             df.at[i, "companyName"] = div.find("div", {"class": "vNEEBe"}).text
             df.at[i, "location"] = div.find("div", {"class": "Qk80Jf"}).text
-            df.at[i, "date"] = div.find_all("span", class_="SuWscb", limit=1)[0].text
+            df.at[i, "date"] = div.find_all(
+                "span", class_="SuWscb", limit=1)[0].text
         return jsonify(df.to_dict("records"))
 
     # get data from the CSV file for rendering root page
@@ -470,7 +546,7 @@ with open("application.yml") as f:
     password = info["password"]
     app.config["MONGODB_SETTINGS"] = {
         "db": "appTracker",
-        "host": f"mongodb+srv://{username}:{password}@applicationtracker.287am.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+        "host": f"mongodb+srv://{username}:{password}@cluster0.r0056lg.mongodb.net/appTracker?retryWrites=true&w=majority",
     }
 db = MongoEngine()
 db.init_app(app)
@@ -488,7 +564,13 @@ class Users(db.Document):
     authTokens = db.ListField()
     applications = db.ListField()
     resume = db.FileField()
-
+    skills = db.ListField()
+    job_levels = db.ListField()
+    locations = db.ListField()
+    institution = db.StringField() 
+    phone_number = db.StringField()
+    address = db.StringField()
+    
     def to_json(self):
         """
         Returns the user details in JSON object
